@@ -1,0 +1,24 @@
+version: "3.3"
+services:
+  blockchain:
+    network_mode: host
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: -printtoconsole
+      -rpcallowip=127.0.0.1
+      -rpcbind=127.0.0.1
+      -rpcuser=dev
+      -rpcpassword=dev
+      -rpcport=8332
+    volumes:
+      - ./bin/:/kicksoccer
+    ports:
+      - "8332:8332"
+      - "8333:8333"
+      - "18332:18332"
+      - "18333:18333"
+      - "18443:18443"
+      - "18444:18444"
+    expose:
+      - "8332"
