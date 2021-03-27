@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kicksoccer-node
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: kicksoccer-node
+  template:
+    metadata:
+      labels:
+        app: kicksoccer-node
+    spec:
+      containers:
+        - name: kicksoccer-node
+          image: rafaeltoky0/kicksoccer:0.0.1
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8332
+              name: rpc
+          args:
+            - printtoconsole
+            - rpcallowip=127.0.0.1
+            - rpcbind=127.0.0.1
+            - rpcuser=dev
+            - rpcpassword=dev
+            - rpcport=8332
+            - testnet
